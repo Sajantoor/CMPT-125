@@ -68,6 +68,8 @@ void stack_free(stack3_t* s)
     free(s);
 }
 
+
+// ---------------- Question 3a -------------------
 // returns the number of elements in the stack
 int stack_length(stack3_t* s) {
   // validating parameters 
@@ -110,8 +112,80 @@ int stack_length(stack3_t* s) {
   return counter;
 }
 
+// -------------- Queston 3b ------------------------------ 
+
+typedef struct {
+  int* data;
+  unsigned int len;
+} arr;
+
+// converts stack to array using stack functions
+arr* stackToArray(stack3_t* s) {
+    // creates an array for the stack
+  int popVal = 0; 
+  arr* ar = malloc(sizeof(arr)); 
+  ar->data = malloc(sizeof(int));
+  ar->len = 0;
+
+  while (popVal != -1) {
+    popVal = stack_pop(s); 
+    
+    if (popVal == -1) {
+      break;
+    }
+
+    ar->len++;
+    ar->data = realloc(ar->data, sizeof(int) * ar->len);
+    // OS cannot allocate memory
+    if (ar->data == NULL) {
+      return NULL;
+    }
+
+    ar->data[ar->len] = popVal;
+  }
+
+  return ar;
+}
+
+
+// All elements must be checked so O(n^2) 
 bool stack_strictly_less(stack3_t* s1, stack3_t* s2) {
-  // implement me
-  return false;
+  // probably easier to create 2 arrays and loop through
+  // stacks cannot be modified, once item is removed must be added back later
+
+  // validate parameters 
+  if (s1 == NULL || s2 == NULL) {
+    return false;
+  }
+
+  // true if either one of the stacks is empty
+  if (stack_is_empty(s1) || stack_is_empty(s2)) {
+    return true;
+  }
+
+  arr * s1Array = stackToArray(s1);
+  arr * s2Array = stackToArray(s2);
+
+  bool result = false; 
+
+  // loops through both arrays and check if s1Array > s2Array
+  for (int i = 0; i < s1Array->len && !result; i++) {
+    for (int j = 0; j < s2Array->len && !result; j++) {
+      if (s2Array->data[j] > s1Array->data[i]) {
+        result = true; 
+      }
+    }
+  }
+
+  // puts data back in stack
+  for (int i = s1Array->len; i > 0; i--) {
+    stack_push(s1, s1Array->data[i]); 
+  }
+
+  for (int i = s2Array->len; i > 0; i--) {
+    stack_push(s2, s2Array->data[i]); 
+  }
+
+  return result;
 }
 
