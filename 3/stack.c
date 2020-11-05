@@ -68,10 +68,46 @@ void stack_free(stack3_t* s)
     free(s);
 }
 
-
+// returns the number of elements in the stack
 int stack_length(stack3_t* s) {
-  // implement me
-  return false;
+  // validating parameters 
+  if (s == NULL) {
+    return -1; 
+  }
+
+  // empty stack return 0
+  if (stack_is_empty(s)) {
+    return 0;
+  }
+  
+  // cannot modify stack directly, create duplicate of stack, to recreate stack 
+  // values can only be read using pop and push
+  stack3_t * duplicate = stack_create();
+  int popVal = 0; // pop returns the item or -1 if empty
+  int counter = 0; // gets length of stack 
+
+  // while stack is not empty 
+  while (popVal != -1) {
+    popVal = stack_pop(s);
+    if (popVal == -1) {
+      break; 
+    }
+
+    // pushes the value to duplicate 
+    stack_push(duplicate, popVal);
+    counter++;
+  }
+
+  // recreates the original stack
+  for (int i = 0; i < counter; i++) {
+    popVal = stack_pop(duplicate); 
+    // check for -1 => possibly unneccessary    
+    stack_push(s, popVal);
+  }
+
+  // duplicate is not needed, memory leak
+  stack_free(duplicate); 
+  return counter;
 }
 
 bool stack_strictly_less(stack3_t* s1, stack3_t* s2) {
