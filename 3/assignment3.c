@@ -11,9 +11,21 @@ void quick_sort(int* ar, int n) {
 
 
 void merge(int* ar, int n, int mid) {
-  // implement me
+  
 }
 
 void merge_sort(int* ar, int n) {
-  // implement me
+  if (n > 1) {
+    int m = n / 2; 
+    merge_sort(ar, m); // sort the first half 
+
+    // seg fault check
+    if ((ar + m + 1) >= n) {
+      return;
+    }
+
+    merge_sort(ar + m + 1, n); // sort the second half 
+
+    merge(ar, n, m); // merge halfs
+  } 
 }
