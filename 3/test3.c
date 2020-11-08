@@ -157,16 +157,73 @@ bool test_q4()  {
   if (one==1 && two==2 && not_empty==false && is_empty)  {
     printf("Q4 ok\n");
     return true;
-  }
-  else  {
+  } else {
     printf("Q4 ERROR\n");
+    return false;
+  }
+}
+
+// tests length
+bool test_q4_1()  {
+  queue_t* q1 = queue_create();
+  enqueue(q1,1);
+  enqueue(q1,2);
+  enqueue(q1,3);
+  enqueue(q1,4);
+
+  int length = queue_length(q1);
+
+  if (length == 4)  {
+    printf("Q4-1 ok\n");
+    return true;
+  } else {
+    printf("Q4-1 ERROR\n");
+    return false;
+  }
+}
+
+// tests null segfault 
+bool test_q4_2()  {
+  queue_t* q2 = NULL;
+  enqueue(q2,1);
+  dequeue(q2);
+  int length = queue_length(q2);
+  bool isEmpty = queue_is_empty(q2);
+
+  if (length == -1 && isEmpty)  {
+    printf("Q4-2 ok\n");
+    return true;
+  } else {
+    printf("Q4-2 ERROR\n");
+    return false;
+  }
+}
+
+// tests free
+bool test_q4_3()  {
+  queue_t* q3 = queue_create();
+  enqueue(q3,1);
+  enqueue(q3,2);
+  enqueue(q3,3);
+  enqueue(q3,4);
+  
+  printf("%p \n", q3);
+  queue_free(q3);
+  printf("%p \n", q3);
+  printf("%d \n", q3->head->next->data);
+
+
+  if (q3->head->data == 1)  {
+    printf("Q4-3 ok\n");
+    return true;
+  } else {
+    printf("Q4-3 ERROR\n");
     return false;
   }
 }
 
 
 int main(void) {
-
   test_q1_1();
   test_q1_2();
   test_q2_1();
@@ -174,6 +231,9 @@ int main(void) {
   test_q3_1();
   test_q3_2();
   test_q4();
-
+  test_q4_1();
+  test_q4_2();
+  test_q4_2();
+  test_q4_3();
   return 0;
 }

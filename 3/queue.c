@@ -13,10 +13,12 @@
 // if malloc fails, returns NULL
 queue_t* queue_create() {
   queue_t* queue = (queue_t*) malloc(sizeof(queue_t));
+  // if OS cannot allocate memory
   if (queue == NULL) {
     return NULL;
   }
 
+  // sets head and tail
   queue->head = NULL; 
   queue->tail = NULL;
   return queue;
@@ -35,20 +37,22 @@ queue_t* enqueue(queue_t* q, int item) {
 
   // create new node
   struct Node * node = (struct Node*) malloc(sizeof(struct Node));
+  // if OS cannot allocate memory
   if (node == NULL) {
     return NULL;
   }
-
+  
   node->data = item; 
   node->next = NULL;
 
-  // if empty, then must add to head as well 
+  // if linked list is empty, then must add to head as well 
   if (q->head == NULL) {
     q->head = node;
     q->tail = node;
     return q;
   }
 
+  // link the list!
   q->tail->next = node;
   q->tail = q->tail->next;
   return q;
@@ -116,14 +120,18 @@ void queue_free(queue_t* q) {
   if (q == NULL) {
     return; 
   }
-
+  
+  // need 2 pointers 
   struct Node* node = q->head;
   struct Node* prevNode = q->head;
 
   // free all nodes in queue
   while (node != NULL) {
     node = node->next;
+    prevNode->next = NULL;
+    // printf("Freeing node with value %d \n", prevNode->data);
     free(prevNode);
+    prevNode = NULL;
     prevNode = node;
   }
   
