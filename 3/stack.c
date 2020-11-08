@@ -69,7 +69,7 @@ void stack_free(stack3_t* s)
 }
 
 
-// ---------------- Question 3a -------------------
+// ---------------- Question 3A -------------------
 // returns the number of elements in the stack
 int stack_length(stack3_t* s) {
   // validating parameters 
@@ -112,7 +112,7 @@ int stack_length(stack3_t* s) {
   return counter;
 }
 
-// -------------- Queston 3b ------------------------------ 
+// -------------- Queston 3B ------------------------------ 
 
 typedef struct {
   int* data;
@@ -155,7 +155,7 @@ bool stack_strictly_less(stack3_t* s1, stack3_t* s2) {
 
   // validate parameters 
   if (s1 == NULL || s2 == NULL) {
-    return false;
+    return true;
   }
 
   // true if either one of the stacks is empty
