@@ -5,8 +5,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+struct Node { 
+  int data; 
+  struct Node* next; 
+}; 
+
 typedef struct {
-  // implement me
+  struct Node* head; 
+  struct Node* tail; 
 } queue_t;
 
 
