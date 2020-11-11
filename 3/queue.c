@@ -135,17 +135,32 @@ int dequeue(queue_t* q) {
 
   // to dequeue: queue must not be empty 
   if (queue_is_empty(q)) {
+    #ifdef QUEUE
+      printf("Array is empty, returning \n"); 
+    #endif
     return 0;
   }
-  
-  // int value = q->head->data;
-  // struct Node* prevHead = q->head;  
-  // q->head = q->head->next;
 
-  // free(prevHead);
-  // prevHead = NULL;  
+  // dequeued value 
+  int value = q->arr[q->head];
+  // if reach end, circle around 
+  if (q->head == q->size -1) {
+    #ifdef QUEUE
+      printf("Head reached end: Dequeue array by going to start of array \n"); 
+    #endif
+    q->head = 0;
+  // else dequeue normally 
+  } else {
+    #ifdef QUEUE
+      printf("Dequeue array normally \n"); 
+    #endif
+    q->head++;
+  }
 
-  return 0;
+  #ifdef QUEUE
+    printf("Dequeue value: %d \n", value); 
+  #endif
+  return value;
 }
 
 // checks if the queue is empty
@@ -155,9 +170,18 @@ bool queue_is_empty(queue_t* q) {
   }
 
   // empty if BOTH head and tail are 0
-  if (q->head == 0 && q->tail == 0) {
+  // fix this
+  if (q->head == q->tail) {
+    #ifdef QUEUE
+      printf("Array IS EMPTY \n"); 
+    #endif
+
     return true;
   } 
+
+  #ifdef QUEUE
+    printf("Array is NOT empty \n"); 
+  #endif
 
   return false;
 }
@@ -169,17 +193,32 @@ int queue_length(queue_t* q) {
   if (q == NULL) {
     return -1;
   }
+  int value = 0; 
+  // if head is less than the tail, length is head - tail -1; 
+  if (q->head < q->tail) {
+    #ifdef QUEUE
+      printf("Calc length: Tail (%d) is greater than head (%d) \n", q->tail, q->head);
+    #endif
+    value = q->tail - q->head; 
+    // if head is equal to the tail, length is the size of the array
+  } else if (q->head > q->tail) {
+      #ifdef QUEUE
+      printf("Calc length: Head (%d) is greater than tail (%d) \n", q->head, q->tail);
+    #endif
+    value = q->size - q->head + q->tail;
+    // if head is greater than the tail-> length = ar->len - head + tail 
+  } else if (q->head == 0 && q->tail == 0) {
+    #ifdef QUEUE
+      printf("Head tail both 0, therefore empty \n");
+    #endif
+    value = 0;
+  } 
 
-  unsigned int length = 0;
+  #ifdef QUEUE
+    printf("Length of array is %d \n", value);
+  #endif
 
-  // struct Node* node = q->head;
-
-  // while (node != NULL) {
-  //   length++;
-  //   node = node->next;
-  // }
-
-  return length;  
+  return value;
 }
 
 // frees the queue

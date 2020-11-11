@@ -5,14 +5,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-struct Node { 
-  int data; 
-  struct Node* next; 
-}; 
-
 typedef struct {
-  struct Node* head; 
-  struct Node* tail; 
+  unsigned int head; // arr index of head 
+  unsigned int tail; // arr index of tail 
+  int * arr;  // the actual array 
+  unsigned int size; // array size
 } queue_t;
 
 
