@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "queue.h"
-#define QUEUE = 1;
+
 
 
 ///////////////////////////////////////
@@ -53,6 +53,7 @@ queue_t* enqueue(queue_t* q, int item) {
       // head = 0, tail is the last element in the array + 1 -> the enqueued element
   
   // regular adding of items 
+
   // q->tail == 0 because if empty both gonna be zero so need to fix that
   if (q->tail != (q->size -1) && (q->tail != q->head || q->tail == 0)) {  
     q->arr[q->tail] = item; 
@@ -65,7 +66,7 @@ queue_t* enqueue(queue_t* q, int item) {
     q->arr[q->tail] = item; 
     q->tail = 0;
   // expand array and copy 
-  } else if (q->tail == (q->size -1) || q->tail == q->head) {
+  } else if (q->tail == (q->size -1)) {
     // create new array 
     int* newArray = (int*) malloc(sizeof(int) * q->size*2); 
     // OS cannot allocate memory for new array
@@ -103,7 +104,7 @@ queue_t* enqueue(queue_t* q, int item) {
     // set queue struct to new array 
     q->size *= 2; 
     q->head = 0; 
-    q->tail = i + 1; 
+    q->tail = i; 
     // free old array -> fix memory leak 
     free(q->arr);
     // set pointer to new array 
@@ -112,6 +113,7 @@ queue_t* enqueue(queue_t* q, int item) {
     // add item
     #ifdef QUEUE
       printf("Added item (%d) to array expansively at ar[%d]!\n", item, q->tail);
+      printf("Head: %d, tail: %d \n", q->head, q->tail);
     #endif
 
     q->arr[q->tail] = item; 
@@ -193,6 +195,11 @@ int queue_length(queue_t* q) {
   if (q == NULL) {
     return -1;
   }
+
+  if (queue_is_empty(q)) {
+    return 0; 
+  }
+
   int value = 0; 
   // if head is less than the tail, length is head - tail -1; 
   if (q->head < q->tail) {
@@ -203,16 +210,11 @@ int queue_length(queue_t* q) {
     // if head is equal to the tail, length is the size of the array
   } else if (q->head > q->tail) {
       #ifdef QUEUE
-      printf("Calc length: Head (%d) is greater than tail (%d) \n", q->head, q->tail);
+      printf("Calc length: Head (%d) is greater than tail (%d): size %d \n", q->head, q->tail, q->size);
     #endif
     value = q->size - q->head + q->tail;
     // if head is greater than the tail-> length = ar->len - head + tail 
-  } else if (q->head == 0 && q->tail == 0) {
-    #ifdef QUEUE
-      printf("Head tail both 0, therefore empty \n");
-    #endif
-    value = 0;
-  } 
+  }
 
   #ifdef QUEUE
     printf("Length of array is %d \n", value);
