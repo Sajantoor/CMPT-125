@@ -48,7 +48,7 @@ int stack_pop(stack3_t* s)
 {
     if (stack_is_empty(s))
     {
-      printf("STACK IS EMPTY!");
+      // printf("STACK IS EMPTY!\n");
       return -1;
     }
     (s->head)--;

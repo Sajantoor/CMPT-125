@@ -152,7 +152,6 @@ void quick_sort(int* ar, int n) {
     printf("\n-------------- \n");
     
   #endif
-
 }
 
 
@@ -162,7 +161,7 @@ void quick_sort(int* ar, int n) {
 // merge both
 void merge(int* ar, int n, int mid) {
   // validate parameters
-  if (ar == NULL || n <= 0 || mid <= 0) {
+  if (ar == NULL || n <= 0 || mid <= 0 || n < mid) {
     return; 
   }
 
@@ -207,7 +206,6 @@ void merge(int* ar, int n, int mid) {
     printf("\n ------------- \n");
   #endif
 
-
   // compare data and sort
   int a = 0; // array incrementer
   int i = 0; // left half incrementer
@@ -250,7 +248,7 @@ void merge(int* ar, int n, int mid) {
 
 void merge_sort(int* ar, int n) {
   // validate params 
-  if (ar == NULL) {
+  if (ar == NULL || n <= 1) {
     return;
   }
   
