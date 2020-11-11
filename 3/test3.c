@@ -4,6 +4,7 @@
 #include "stack.h"
 #include "queue.h"
 
+// provided test
 bool test_q1_1()  {
   int a[] = {4,1,2,7,5,3,2};
   rearrange(a,7,0);
@@ -15,11 +16,95 @@ bool test_q1_1()  {
       okFlag = false;
 
   if (okFlag)  {
-    printf("Q1-1 ok\n");
+    printf("Q1-1 ok\n\n");
     return true;
   }
   else  {
     printf("Q1-1 ERROR\n");
+    return false;
+  }
+}
+
+// biggest element is the pivot
+bool test_q1_1_1()  {
+  int a[] = {2, 3, 6, -1, 3, 2, 1};
+  rearrange(a,7,2);
+  bool okFlag = true;
+
+  int correct_ans[] = {1, 3, 2, -1, 3, 2, 6};
+  for (int i=0;i<7;i++)
+    if (a[i]!=correct_ans[i])
+      okFlag = false;
+
+  if (okFlag)  {
+    printf("Q1-1-1 ok\n");
+    return true;
+  }
+  else  {
+    printf("Q1-1-1 ERROR\n");
+    return false;
+  }
+}
+
+// another test
+bool test_q1_1_2()  {
+  int a[] = {4,1,2,7,5,3,2};
+  rearrange(a,7,0);
+  bool okFlag = true;
+
+  int correct_ans[] = {3,1,2,2,4,5,7};
+  for (int i=0;i<7;i++)
+    if (a[i]!=correct_ans[i])
+      okFlag = false;
+
+  if (okFlag)  {
+    printf("Q1-1-2 ok\n");
+    return true;
+  }
+  else  {
+    printf("Q1-1-2 ERROR\n");
+    return false;
+  }
+}
+
+// pivot is smallest element
+bool test_q1_1_3()  {
+  int a[] = {9, 6, 4, 1, 2, 9, 0, 1};
+  rearrange(a,7,6);
+  bool okFlag = true;
+
+  int correct_ans[] = {0, 6, 4, 1, 2, 9, 9, 1};
+  for (int i=0;i<7;i++)
+    if (a[i]!=correct_ans[i])
+      okFlag = false;
+
+  if (okFlag)  {
+    printf("Q1-1-3 ok\n");
+    return true;
+  }
+  else  {
+    printf("Q1-1-3 ERROR\n");
+    return false;
+  }
+}
+
+// test with 2 elements and largest is the pivot
+bool test_q1_1_4()  {
+  int a[] = {2, 1};
+  rearrange(a,2,0);
+  bool okFlag = true;
+
+  int correct_ans[] = {1, 2};
+  for (int i=0;i<2;i++)
+    if (a[i]!=correct_ans[i])
+      okFlag = false;
+
+  if (okFlag)  {
+    printf("Q1-1-4 ok\n");
+    return true;
+  }
+  else  {
+    printf("Q1-1-4 ERROR\n");
     return false;
   }
 }
@@ -55,15 +140,14 @@ bool test_q2_1()  {
       okFlag = false;
 
   if (okFlag)  {
-    printf("Q2-2 ok\n");
+    printf("Q2-1 ok\n");
     return true;
   }
   else  {
-    printf("Q2-2 ERROR\n");
+    printf("Q2-1 ERROR\n");
     return false;
   }
 }
-
 
 bool test_q2_2()  {
   int a[] = {4,1,2,7,5,3,2};
@@ -84,7 +168,6 @@ bool test_q2_2()  {
     return false;
   }
 }
-
 
 bool test_q3_1()  {
   stack3_t* s = stack_create();
@@ -206,14 +289,9 @@ bool test_q4_3()  {
   enqueue(q3,2);
   enqueue(q3,3);
   enqueue(q3,4);
-  
-  printf("%p \n", q3);
   queue_free(q3);
-  printf("%p \n", q3);
-  printf("%d \n", q3->head->next->data);
 
-
-  if (q3->head->data == 1)  {
+  if (q3->head == NULL)  {
     printf("Q4-3 ok\n");
     return true;
   } else {
@@ -225,15 +303,19 @@ bool test_q4_3()  {
 
 int main(void) {
   test_q1_1();
+  test_q1_1_1();
+  test_q1_1_2();
+  test_q1_1_3();
+  test_q1_1_4();
   test_q1_2();
-  test_q2_1();
-  test_q2_2();
-  test_q3_1();
-  test_q3_2();
-  test_q4();
-  test_q4_1();
-  test_q4_2();
-  test_q4_2();
-  test_q4_3();
+  // test_q2_1();
+  // test_q2_2();
+  // test_q3_1();
+  // test_q3_2();
+  // test_q4();
+  // test_q4_1();
+  // test_q4_2();
+  // test_q4_2();
+  // test_q4_3();
   return 0;
 }
