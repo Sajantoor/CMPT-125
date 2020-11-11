@@ -1,8 +1,65 @@
 #include "assignment3.h"
+#define QUICK
 
+// swaps 2 elements
+void swap(int* a, int* b) {
+  int tmp = *a; 
+  *a = *b; 
+  *b = tmp;
+ }
+
+// everything to the left of the pivot is smaller than the pivot
+// everything to the right is larger than the pivot
 int rearrange(int* ar, int n, int pivot_index) {
-  // implement me
-  return -1;
+  // validate parameters -> null, out of bounds
+  if (ar == NULL || n < 0 || pivot_index < 0 || pivot_index > n) {
+    #ifdef QUICK 
+      printf("error returned \n");
+    #endif
+    return -1;
+  } 
+
+  // Requires 2 "pointers", one for left and one for right
+  int left = 0; 
+  int right = n; 
+  int pivot = ar[pivot_index];
+
+  // While right pointer is greater than or equal to left
+  while (left <= right) {
+    // find first element greater than the pivot and less than the pivot
+    // skip pivot index as it's important to not move the pivot early 
+    while ((ar[left] < pivot) || (left == pivot_index)) left++; 
+    while ((ar[right] > pivot) || (right == pivot_index)) right--;
+
+    // swaps first element greater than the pivot, with first element less than the pivot
+    if (left <= right) {
+      #ifdef QUICK 
+        printf("Swap %d with %d \n", ar[left], ar[right]); 
+        printf("Result: ");
+        for (int i = 0; i < n; i++) {
+          printf("%d ", ar[i]);
+        }
+        printf("\n");
+      #endif
+
+      swap(&ar[left], &ar[right]);
+      left++; right--;
+    }
+  }
+  // Once the left has the all the small elements and right has all the big elements, swap the pivot with the right pointer
+  swap(&ar[pivot_index], &ar[right]);
+  #ifdef QUICK
+    printf("%d, %d \n", right, left);  
+    printf("\n------------ Rearranged list --------- \n"); 
+    for (int i = 0; i < n; i++) {
+      printf("%d ", ar[i]);
+    }
+    printf("\n");
+
+  #endif
+
+  // return the new index of the pivot
+  return right;
 }
 
 void quick_sort(int* ar, int n) {
@@ -10,6 +67,7 @@ void quick_sort(int* ar, int n) {
 }
 
 
+// Merge subroutine:
 // assumption [0 - (mid-1)] is sorted
 // assumption [mid - (n-1)] is sorted 
 // merge both
