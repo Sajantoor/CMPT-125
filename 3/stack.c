@@ -103,7 +103,6 @@ int stack_length(stack3_t* s) {
   // recreates the original stack
   for (int i = 0; i < counter; i++) {
     popVal = stack_pop(duplicate); 
-    // check for -1 => possibly unneccessary    
     stack_push(s, popVal);
   }
 
@@ -113,7 +112,7 @@ int stack_length(stack3_t* s) {
 }
 
 // -------------- Queston 3B ------------------------------ 
-
+// Array with length in struct
 typedef struct {
   int* data;
   unsigned int len;
