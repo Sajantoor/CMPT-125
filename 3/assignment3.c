@@ -55,7 +55,6 @@ int getMedian(int* ar) {
   int b = ar[1];
   int c = ar[2];
 
-
   if (a > b) { 
     if (b > c) 
         return b; 
@@ -76,7 +75,7 @@ int getMedian(int* ar) {
 
 
 void quick_sort(int* ar, int n) {
-  // validate params, array less than 1 is already sorted or invalid so just return
+  // validate params, array less than equal to 1 is already sorted or invalid so just return
   if (ar == NULL || n <= 1) {
     return;
   }
@@ -109,13 +108,8 @@ void quick_sort(int* ar, int n) {
 // assumption [mid - (n-1)] is sorted 
 // merge both
 void merge(int* ar, int n, int mid) {
-  // validate parameters
-  if (ar == NULL || n <= 0 || mid <= 0 || n < mid) {
-    return; 
-  }
-
-  // validate params more!
-  if (mid > n) {
+  // validate parameters, merge of n = 1 is just the array
+  if (ar == NULL || n <= 1 || mid <= 0 || n < mid) {
     return; 
   }
 
@@ -174,10 +168,7 @@ void merge_sort(int* ar, int n) {
   
   // BASE CASE:
   // arrays less than zero are invalid 
-  // arrays of 0 or 1 ore already sorted
-  if (n <= 1) {
-    return; 
-  }
+  // arrays of 0 or 1 ore already sorted 
   
   // RECURSIVE STEP: 
   int mid = n / 2; 

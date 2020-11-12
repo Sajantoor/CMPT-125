@@ -3,7 +3,6 @@
 
 #include "stack.h"
 
-
 // creates a new stack
 stack3_t* stack_create()
 {

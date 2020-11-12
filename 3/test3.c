@@ -206,7 +206,10 @@ bool test_q3_1()  {
   int len2 = stack_length(s);
 
   if (len1 == 4 && len2 == 5)  {
-    if (stack_pop(s) != 0) {
+    int a = stack_pop(s); // 0 
+    int b = stack_pop(s); // 4
+    int c = stack_pop(s); // 2
+    if (a != 0 || b != 4 || c != 2) {
       printf("Not the same stack!!!!! \n");
     }
     printf("Q3-1 ok\n");
@@ -238,7 +241,13 @@ bool test_q3_2()  {
   stack_push(s2,12);
 
   if (stack_strictly_less(s1, s2))  {
-    if (stack_pop(s2) != 12 || stack_pop(s1) != 0) {
+    int one = stack_pop(s2); // 12
+    int two = stack_pop(s1); // 0 
+    int three = stack_pop(s2); // 11
+    int four = stack_pop(s1); // 4
+
+
+    if (one != 12 || two != 0 || three != 11 || four != 4) {
       printf("Not the same stack!!!!! \n");
     }
 
@@ -283,7 +292,6 @@ bool test_q4_L_1()  {
   enqueue(q1,4);
   enqueue(q1,5);
 
-
   int length = queue_length(q1);
 
   if (length == 5)  {
@@ -327,8 +335,9 @@ bool test_q4_L_3()  {
   dequeue(q1);
 
   int length = queue_length(q1);
+  bool isEmpty = queue_is_empty(q1);
 
-  if (length == 0)  {
+  if (length == 0 && isEmpty) {
     printf("Q4-L-3 ok\n");
     return true;
   } else {
@@ -347,11 +356,29 @@ bool test_q4_L_4()  {
   enqueue(q1,5);
   enqueue(q1,6);
   dequeue(q1);
+  enqueue(q1, 8); 
+  enqueue(q1, 9);
+  dequeue(q1);
+  dequeue(q1);
+  dequeue(q1);
+  dequeue(q1);
+  dequeue(q1);
+  // len 2
+  dequeue(q1);
+  dequeue(q1);
+  // len 0 
+  enqueue(q1, 1000); 
+  enqueue(q1, 1001);
+  // len 2
+  
+  // for (int i = 0; i < q1->size; i++) {
+  //   printf("%d \n", q1->arr[i]);
+  // }
 
   int length = queue_length(q1);
   bool val = queue_is_empty(q1);
 
-  if (length == 5 && !val)  {
+  if (length == 2 && !val)  {
     printf("Q4-L-4 ok\n");
     return true;
   } else {
@@ -454,7 +481,7 @@ bool test_q2_1_EDGE() {
   merge(NULL, -1, 0);
   int a[] = {4,1,2,7,5,3,2};
   merge(a, 7, 5);
-  merge(a, -5, 5);
+  merge(a, -1, -8);
   merge(a, 1, 5);
   printf("Q2_1_EDGE: didn't seg fault: pass \n");
   return true;

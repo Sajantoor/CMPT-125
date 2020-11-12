@@ -41,7 +41,7 @@ queue_t* enqueue(queue_t* q, int item) {
 
   // add element to array
   // add item normally 
-  if (q->tail != (q->size -1) && (q->tail != q->head || q->tail == 0)) {  
+  if (q->tail != (q->size -1)) {  
     q->arr[q->tail] = item; 
     q->tail++;
   // circular adding of items 
