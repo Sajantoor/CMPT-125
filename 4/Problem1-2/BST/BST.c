@@ -4,18 +4,15 @@
 #include "BST.h"
 
 // creates a Binary Search Tree
-BST_t* create_BST()
-{
+BST_t* create_BST() {
   BST_t* tree = (BST_t*) malloc(sizeof(BST_t));
   tree->root = NULL;
   return tree;
 }
 
-BTnode_t* find(BST_t* tree, int item)
-{
+BTnode_t* find(BST_t* tree, int item) {
   BTnode_t* current = tree->root;
-  while (current!=NULL)
-  {
+  while (current!=NULL) {
     if (current->value == item)
       return current;
     if (current->value > item)
@@ -28,20 +25,14 @@ BTnode_t* find(BST_t* tree, int item)
 }
 
 // inserts item into the Binary Search Tree
-void BST_insert(BST_t* tree, int item)
-{
-  if (tree->root == NULL)
-  {
+void BST_insert(BST_t* tree, int item) {
+  if (tree->root == NULL) {
     printf("set %d as the root\n", item);
     tree->root = create_node(item);
-  }
-  else
-  {
+  } else {
     BTnode_t* current = tree->root;
     BTnode_t* prev = NULL;
-    while (current!=NULL)
-    {
-
+    while (current!=NULL) {
       prev = current;
       // decide to go left or right in the next step 
       if (current->value > item)
@@ -49,13 +40,11 @@ void BST_insert(BST_t* tree, int item)
       else
         current = current->right;
     }
-    if (prev->value > item)
-    {
+    
+    if (prev->value > item) {
       printf("add %d to left of %d\n", item, prev->value);
       set_left_child(prev, create_node(item));
-    }
-    else
-    {
+    } else {
       printf("add %d to right of %d\n", item, prev->value);
       set_right_child(prev, create_node(item));
     }
@@ -63,7 +52,6 @@ void BST_insert(BST_t* tree, int item)
 }
 
 // removes item from the Binary Search Tree
-void BST_remove(BST_t* tree, int item)
-{
+void BST_remove(BST_t* tree, int item) {
   // implement me
 }
