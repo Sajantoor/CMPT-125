@@ -11,6 +11,7 @@ my_array* create_my_array(int length) {
   // BUG: If length is 0 will be NULL, need to test that edge case
   arr->arr = malloc(sizeof(int) * length);
   if (arr == NULL) {
+    free(arr);
     return NULL;
   }
 
@@ -96,12 +97,42 @@ int my_ar_find(const my_array* ar, int element) {
 }
  
 void my_ar_map(my_array* ar, int (*f)(int)) {
+  for (int i = 0; i < ar->len; i++) {
+    ar->arr[i] = f(ar->arr[i]);
+  }
 }
 
 int my_ar_reduce(const my_array* ar, int (*f)(int,int)) {
-    return -1;
+  int accumulator = ar->arr[0]; 
+  for (int i = 1; i < ar->len; i++) {
+    accumulator = f(accumulator, ar->arr[i]);
+  }
+  
+  return accumulator;
 }
  
 my_array* my_ar_filter(my_array* src, bool (*f)(int)) {
-  return NULL;
+  my_array* duplicate = create_my_array(src->len);
+  if (duplicate == NULL) 
+    return NULL; 
+  
+  int j = 0;
+  for (int i = 0; i < src->len; i++) { 
+   bool flag = f(src->arr[i]);
+ 
+    if (flag) {
+      duplicate->arr[j] = src->arr[i];
+      j++;
+    }
+  }
+
+  duplicate->len = j;
+  duplicate->arr = realloc(duplicate->arr, duplicate->len * sizeof(int));
+  
+  if (duplicate->arr == NULL) {
+    free(duplicate);
+    return NULL;
+  }
+
+  return duplicate;
 }
