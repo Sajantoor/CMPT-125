@@ -10,7 +10,8 @@
 // The length can be obtained using my_ar_get_length.
 // The length can be modified using my_ar_resize.
 typedef struct {
-  // implement me
+  int* arr; 
+  unsigned int len; 
 } my_array;
  
 // Creates a new my_array of the given length.
