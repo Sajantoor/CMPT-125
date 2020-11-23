@@ -19,6 +19,22 @@ void test_q3_part1() {
 
   if (my_ar_get_value(arr,5) == 25)    printf("Q3-1-set/get_value ok\n");
   else    printf("Q3-1-set/get_value ERROR\n");
+  my_array* arr2 = create_my_ar_init(0);
+
+  if (arr2 != NULL) {
+    printf("Q3-1 Size of zero ok \n");
+  } else {
+    printf("Q3-1 Size of zero ERROR \n");
+  }
+
+  my_ar_resize(arr2, 4);
+
+  if (arr2 != NULL) {
+    printf("Q3-1 resize of arr2 ok \n");
+  } else {
+    printf("Q3-1 resize of arr2 ERROR \n");
+  }
+
 
   my_ar_free(arr);
 }

@@ -8,9 +8,8 @@ my_array* create_my_array(int length) {
   if (arr == NULL)
     return NULL;
   
-  // BUG: If length is 0 will be NULL, need to test that edge case
   arr->arr = malloc(sizeof(int) * length);
-  if (arr == NULL) {
+  if (arr->arr == NULL && length != 0) {
     free(arr);
     return NULL;
   }
@@ -31,7 +30,7 @@ int my_ar_set_value(my_array* ar, int index, int item)  {
  
  
 int my_ar_get_value(const my_array* ar, int index) {
-  return ar->arr[index];;
+  return ar->arr[index];
 }
  
  
