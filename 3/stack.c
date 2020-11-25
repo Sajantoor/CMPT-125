@@ -127,7 +127,6 @@ arr* stackToArray(stack3_t* s) {
 
   while (popVal != -1) {
     popVal = stack_pop(s); 
-    
     if (popVal == -1) {
       break;
     }
@@ -139,7 +138,7 @@ arr* stackToArray(stack3_t* s) {
       return NULL;
     }
 
-    ar->data[ar->len] = popVal;
+    ar->data[ar->len - 1] = popVal;
   }
 
   return ar;
@@ -164,13 +163,12 @@ bool stack_strictly_less(stack3_t* s1, stack3_t* s2) {
   arr * s1Array = stackToArray(s1);
   arr * s2Array = stackToArray(s2);
 
-  bool result = false; 
-
+  bool result = true; 
   // loops through both arrays and check if s1Array > s2Array
-  for (int i = 0; i < s1Array->len && !result; i++) {
-    for (int j = 0; j < s2Array->len && !result; j++) {
+  for (int i = 0; i < s1Array->len && result; i++) {
+    for (int j = 0; j < s2Array->len && result; j++) {
       if (s2Array->data[j] > s1Array->data[i]) {
-        result = true; 
+        result = false; 
       }
     }
   }

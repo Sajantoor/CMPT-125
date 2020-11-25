@@ -28,10 +28,7 @@ float eval_arithmetic_expression(BTnode_t* root) {
   return root->value;
 }
 
-int get_max(BST_t* tree) {
-  if (!tree) 
-    return -1;
-  
+int get_max(BST_t* tree) {  
   // in binary tree, max is always the right most child 
   BTnode_t* el = tree->root; 
   while (el && el->right) {
@@ -55,34 +52,46 @@ int count_nodes(BTnode_t * root) {
 }
 
 // recursively function, creates an array with binary tree, in order traversal
-int binary_tree_array(BTnode_t* root, int arr[], int i) {
-     if (root == NULL)
-          return i;
-
-     if (root->left != NULL)
-          i = binary_tree_array(root->left, arr, i);
+int binary_tree_array(BTnode_t* root, int arr[], unsigned int i) {
+  // base case
+  if (root == NULL)
+    return i;
+  
+  // left half add, to the array
+  if (root->left != NULL)
+    i = binary_tree_array(root->left, arr, i);
     
-    arr[i] = root->value;
-    i++;
+  // add root to the array 
+  arr[i] = root->value;
+  i++;
 
-     if (root->right != NULL)
-          i = binary_tree_array(root->right, arr, i);
+  // right half add to array
+  if (root->right != NULL)
+    i = binary_tree_array(root->right, arr, i);
 
-     return i;
+  return i;
 }
 
 int get_median(BST_t* tree) {
+  if (!tree) {
+    return -1;
+  }
   // median is middle number of in order traversal of binary tree
-  // create array to store tree
+  // count nodes to create an array and know which index is the median
   int count = count_nodes(tree->root);
+  // if it's just one element, it must be the root 
+  if (count == 1) {
+    return tree->root->value; 
+  }
+  // create array to store tree
   int* arr = malloc(sizeof(int) * count); 
   if (arr == NULL) {
     return -1; 
   }
-
+  // find index median
   int index = count / 2.0;
+  // convert binary tree to array
   binary_tree_array(tree->root, arr, 0);
-
 
   return arr[index];
 }
