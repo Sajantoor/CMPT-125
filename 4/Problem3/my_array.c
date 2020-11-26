@@ -108,10 +108,6 @@ int my_ar_find(const my_array* ar, int element) {
 }
  
 void my_ar_map(my_array* ar, int (*f)(int)) {
-  // validate function
-  if (f == NULL) {
-    return;
-  }
   // go through all elements and update
   for (int i = 0; i < ar->len; i++) {
     ar->arr[i] = f(ar->arr[i]);
@@ -119,10 +115,6 @@ void my_ar_map(my_array* ar, int (*f)(int)) {
 }
 
 int my_ar_reduce(const my_array* ar, int (*f)(int,int)) {
-  // validate function and len to not seg fault
-  if (f == NULL || ar->len == 0) {
-    return -1;
-  }
   // init accumlator as array 0
   int accumulator = ar->arr[0];
   // go through remaining elements and accumalate  
@@ -134,10 +126,6 @@ int my_ar_reduce(const my_array* ar, int (*f)(int,int)) {
 }
  
 my_array* my_ar_filter(my_array* src, bool (*f)(int)) {
-  // validate function
-  if (f == NULL) {
-    return NULL;
-  }
   // create duplicate array of original length
   my_array* duplicate = create_my_array(src->len);
   if (duplicate == NULL) 

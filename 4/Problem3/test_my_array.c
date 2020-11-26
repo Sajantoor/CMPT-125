@@ -158,20 +158,15 @@ int sum(int a,int b) { return a+b;}
 
 void test_q3_reduce() {
   my_array* arr = create_my_ar_init(6);
-  my_array* arr2 = create_my_ar_init(0);
 
   int res = my_ar_reduce(arr, sum);
   int res2 = my_ar_reduce(arr, NULL);
-  int res3 = my_ar_reduce(arr2, sum);
   // expected 1+4+9+16+25=55
   if (res==55)    printf("Q3-3-reduce-test1 ok\n");
   else    printf("Q3-3-reduce-test1 ERROR\n");
 
   if (res2 == -1) printf("Q3-3-reduce-test2 ok\n");
   else    printf("Q3-3-reduce-test2 ERROR\n");
-
-  if (res3 == -1) printf("Q3-3-reduce-test3 ok\n");
-  else    printf("Q3-3-reduce-test3 ERROR\n");
 
   my_ar_free(arr);
 }
