@@ -9,8 +9,7 @@
 using namespace std;
 
 // the class implement the TSP solver
-class TSPSolver
-{
+class TSPSolver {
   private:  
   // may hold the following members:
   ListOfPoints m_list;

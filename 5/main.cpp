@@ -18,10 +18,12 @@ void testPoint() {
   cout << origin << endl;
   
 
-  Point q(3,4,"Q");
+  Point q(3,7,"Q");
   cout << "distance between ORIGIN and Q is " << q.getDistance(origin) << endl;
-
-
+  q.printPoint();
+  cout << q.toString() << endl;
+  cout << "--print using << operator:" << endl;
+  cout << q << endl;
 }
 
 
@@ -92,19 +94,17 @@ void test3() {
 
 
 int main() {
-
   cout << "****Test point**" << endl;
   testPoint();
   cout << "****End of test point**" << endl << endl;
 
-   cout << "****test1**:" << endl;
+  cout << "****test1**:" << endl;
   test1();
   cout << "****end of test1**:" << endl << endl;
  
   cout << "****test2**:" << endl;
   test2();
   cout << "****end of test2**:" << endl << endl;
-
 
   return 0;
 }

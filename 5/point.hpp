@@ -8,8 +8,7 @@
 using namespace std;
 
 // the class represents a point in 2D and its name
-class Point
-{
+class Point {
   private:
     int m_x;
     int m_y;
@@ -38,7 +37,6 @@ class Point
     // Point p(1,2,"A");
     // cout << p << endl;
     friend ostream& operator<<(ostream &os, const Point &p);
-
 };
 
 

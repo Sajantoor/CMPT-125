@@ -9,9 +9,9 @@
 // the class stores an ordered list of points
 // used to store the input to the problem
 // may be also used to store a partial solution to the TSP problem
-class ListOfPoints
-{
-
+class ListOfPoints {
+  private: 
+    // create some data structure of items
   public:
     ListOfPoints();
 
@@ -23,7 +23,6 @@ class ListOfPoints
     
     // draws the points
     void draw() const;
-
 };
 
 #endif

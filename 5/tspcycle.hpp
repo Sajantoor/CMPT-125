@@ -11,9 +11,8 @@ using namespace std;
 // it is used to store the solution to the problem
 // it is a subclass of ListOfPoints
 class TSPCycle : public ListOfPoints {
-
   public:
-    TSPCycle()     {
+    TSPCycle() {
       cout << "default TSPCycle constructor" << endl;
     }
 
