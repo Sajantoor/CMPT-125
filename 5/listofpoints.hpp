@@ -11,6 +11,9 @@
 // may be also used to store a partial solution to the TSP problem
 class ListOfPoints {
   private: 
+    Point* head;
+    Point* tail;
+    unsigned int len; 
     // create some data structure of items
   public:
     ListOfPoints();

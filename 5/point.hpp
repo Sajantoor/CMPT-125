@@ -13,10 +13,13 @@ class Point {
     int m_x;
     int m_y;
     string m_name;
+    // linked list 
+    Point* previous; 
+    Point* next;
 
   public:
     Point(int x, int y, string name)
-      : m_x(x), m_y(y), m_name(name)
+      : m_x(x), m_y(y), m_name(name), previous(NULL), next(NULL)
     {}
 
     int getX() const {return m_x;}
@@ -37,6 +40,23 @@ class Point {
     // Point p(1,2,"A");
     // cout << p << endl;
     friend ostream& operator<<(ostream &os, const Point &p);
+
+    // linked list functions
+    Point* getNext() {
+      return next;
+    }
+
+    void setNext(Point* nextPoint) {
+      next = nextPoint;
+    }
+
+    Point* getPrevious() {
+      return previous;
+    }
+
+    void setPrevious(Point* previousPoint) {
+      previous = previousPoint;
+    }
 };
 
 
