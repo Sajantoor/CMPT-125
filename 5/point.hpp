@@ -18,6 +18,9 @@ class Point {
     Point* next;
 
   public:
+    Point()
+      : m_x(0), m_y(0), m_name(""), previous(NULL), next(NULL) 
+    {}
     Point(int x, int y, string name)
       : m_x(x), m_y(y), m_name(name), previous(NULL), next(NULL)
     {}

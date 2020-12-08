@@ -46,7 +46,78 @@ void ListOfPoints::printList() const {
 }
 
 void ListOfPoints::draw() const {
-  // draw a 20 x 20 grid with all items on it
   cout << "drawing the points..." << endl;
+  // array to store points that fit with in the y coordinate
+  unsigned int size = 2; 
+  // no need to actually have array of classes, just array of class pointers
+  Point** arr = new Point*[size];
+
+  if (arr == NULL) {
+    cout << "Failed to draw points..." << endl;
+    return; 
+  } 
+
+  unsigned int len = 0; 
+
+  // draw a 21 x 21 grid with all items on it
+  // points can have coordinates of 0 t0 20 inclusive
+  for (int i = 0; i <= 20; i++) { // draw y coord
+    int flag = 0;
+    Point* el = this->head;
+
+    // find if any item has a y coordinate equal to i add to array 
+    while (el != NULL) {
+      // check if y coordinate matches to the current y coordinate being printed
+      if (el->getY() == i) {
+        // add more space to pointer array if hit capacity
+        if (len == size) {
+          size *= 2; 
+          arr = (Point**) realloc(arr, sizeof(Point*) * size);
+
+          if (arr == NULL) {
+              cout << "Failed to draw points..." << endl;
+              return; 
+          }
+        }
+
+        // add to array 
+        arr[len] = el;
+        flag = 1;
+        len++;
+      }
+
+      el = el->getNext();
+    }
+
+    for (int j = 0; j <= 20; j++) {
+      if (!flag) {
+        cout << "- ";
+      } else {
+        int foundPoint = 0;
+        for (unsigned int k = 0; k < len; k++) {
+           // check all items in array if their x coord matches 
+          if (arr[k]->getX() == j) {
+              cout << arr[k]->getName() << " ";
+              foundPoint = 1;
+              break; // assumes no points at same coords
+          }
+        }
+
+        if (!foundPoint) {
+          cout << "- ";
+        }
+      }
+    }
+
+    // clear array
+    for (unsigned int k = 0; k < len; k++) {
+      arr[k] = NULL;
+    }
+
+    len = 0;
+    cout << endl;
+  }
+
+  delete [] arr;
 }
  
