@@ -32,6 +32,7 @@ class Point {
     void setY(int y) {m_y=y;}
 
     string getName() const {return m_name;}
+    void setName(string name) {m_name = name;}
 
     float getDistance(const Point &other); 
 

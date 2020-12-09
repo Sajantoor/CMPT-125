@@ -26,6 +26,19 @@ class ListOfPoints {
     
     // draws the points
     void draw() const;
+
+    // returns the head
+    Point* getHead() {
+      return head;
+    }
+
+    Point* getTail() {
+      return tail; 
+    }
+
+    unsigned int getLen() {
+      return len;
+    }
 };
 
 #endif

@@ -46,7 +46,7 @@ void ListOfPoints::printList() const {
 }
 
 void ListOfPoints::draw() const {
-  cout << "drawing the points..." << endl;
+  cout << "Drawing the points..." << endl;
   // array to store points that fit with in the y coordinate
   unsigned int size = 2; 
   // no need to actually have array of classes, just array of class pointers
@@ -59,8 +59,7 @@ void ListOfPoints::draw() const {
 
   unsigned int len = 0; 
 
-  // draw a 21 x 21 grid with all items on it
-  // points can have coordinates of 0 t0 20 inclusive
+  // draw a 21 x 21 grid with all items on it, points can have coordinates of 0 t0 20 inclusive
   for (int i = 0; i <= 20; i++) { // draw y coord
     int flag = 0;
     Point* el = this->head;
@@ -73,14 +72,14 @@ void ListOfPoints::draw() const {
         if (len == size) {
           size *= 2; 
           arr = (Point**) realloc(arr, sizeof(Point*) * size);
-
+          // realloc failed
           if (arr == NULL) {
               cout << "Failed to draw points..." << endl;
               return; 
           }
         }
 
-        // add to array 
+        // add matching element to array 
         arr[len] = el;
         flag = 1;
         len++;
@@ -89,6 +88,7 @@ void ListOfPoints::draw() const {
       el = el->getNext();
     }
 
+    // print x coordinate, where actaul printing happens
     for (int j = 0; j <= 20; j++) {
       if (!flag) {
         cout << "- ";
@@ -109,7 +109,7 @@ void ListOfPoints::draw() const {
       }
     }
 
-    // clear array
+    // clear array for next use
     for (unsigned int k = 0; k < len; k++) {
       arr[k] = NULL;
     }

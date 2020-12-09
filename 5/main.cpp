@@ -4,7 +4,6 @@
 #include "point.hpp"
 #include "listofpoints.hpp"
 #include "tspsolver.hpp"
-#include "tspcycle.hpp"
 
 using namespace std;
 
@@ -33,12 +32,12 @@ void testSolver(ListOfPoints &input) {
   cout << "---run the solver---" << endl;
   TSPSolver solver(input);
   solver.solve();
-  TSPCycle solution = solver.getSolution();
+  solver.getSolution();
 
 
   cout << "Solution found is: " << endl;
-  solution.printList();
-  cout << "the length of the solution is: " << solution.getLength() << endl;
+  solver.printSolution();
+  // cout << "the length of the solution is: " << solution.getLength() << endl;
 }
 
 void test1() {
