@@ -24,8 +24,7 @@ void TSPSolver::solve() {
     Point* el = last->getNext(); // we don't want to sort same element again, already in correct spot so we look at next element
 
     while (el != NULL) {
-      float dist = el->getDistance(*last);
-      
+      float dist = el->getDistance(*last);      
       if (dist < minDist) { 
         minDist = dist;
         winner = el; 
@@ -116,15 +115,14 @@ Point* TSPSolver::getAvg() {
 
   // if all points are in straight line or more or less straight line
   // the avg point will not be right, this corrects for it
-  if (avgX == 0) {
+  if ((avgX == 0 && avgY == 0) || (avgX == 20 && avgY == 20)) {
     avgY /= 2;
-  } 
-  
-  if (avgY == 0) {
+    avgX /= 2;
+  } else if (avgX == 0) {
+    avgY /= 2;
+  } else if (avgY == 0) {
     avgX /= 2;
   }
-
-  cout << "AvgX: " << avgX << " AvgY: " << avgY << endl;
 
   // create new point with these avg x and y
   Point avg = Point(avgX, avgY, "Average point"); 
@@ -145,7 +143,6 @@ Point* TSPSolver::getAvg() {
     el = el->getNext();
   }
 
-  cout << "Start: " << *winner << endl;
   return winner;
 }
 

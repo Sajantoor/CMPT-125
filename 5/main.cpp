@@ -32,7 +32,7 @@ void testSolver(ListOfPoints &input) {
   cout << "---run the solver---" << endl;
   TSPSolver solver(input);
   solver.solve();
-  solver.getSolution();
+  ListOfPoints list = solver.getSolution();
 
   cout << "Solution found is: " << endl;
   solver.printSolution();
@@ -75,20 +75,58 @@ void test2() {
   testSolver(inputTSP);
 }
 
-
+// completely random test to test
 void test3() {
+  srand(time(NULL));
   ListOfPoints inputTSP;
   Point p(0,0,"O");
   cout << "Creating a list of points:" << endl;
 
-  for (int i=0;i<200;i++) {
-    p = Point(rand() % 1000, rand() % 1000,"P"+to_string(i));
+  for (int i=0;i < rand() % 400; i++) {
+    char randomChar = rand() % 95 + 32;
+    string randomString = string(1,  randomChar);
+    p = Point(rand() % 20, rand() % 20, randomString);
     inputTSP.addPoint(p);
   }
+  inputTSP.printList();  
+  inputTSP.draw();  
   
   testSolver(inputTSP);
 }
 
+// test points at all coordinates
+void test4() {
+  ListOfPoints inputTSP;
+  Point p(0,0, "a");
+  cout << "Creating a list of points:" << endl;
+  
+  for (int i = 0; i <= 20; i++) {
+    for (int j = 0; j <= 20; j++) {
+      p = Point(i, j, "" + to_string(rand() % 5000));
+      inputTSP.addPoint(p); 
+    }
+  }
+
+  inputTSP.printList();  
+  inputTSP.draw();  
+  testSolver(inputTSP);
+}
+
+// vertical line
+void test5() {
+  ListOfPoints inputTSP;
+  Point p(0,0, "a");
+  cout << "Creating a list of points:" << endl;
+  
+  for (int i = 0; i <= 20; i++) {
+      p = Point(0, i, "" + to_string(i));
+      inputTSP.addPoint(p); 
+  }
+
+  inputTSP.printList();  
+  inputTSP.draw();  
+  testSolver(inputTSP);
+}
 
 
 int main() {
@@ -103,6 +141,18 @@ int main() {
   cout << "****test2**:" << endl;
   test2();
   cout << "****end of test2**:" << endl << endl;
+
+  cout << "****test3**:" << endl;
+  test3();
+  cout << "****end of test3**:" << endl << endl;
+
+  cout << "****test4**:" << endl;
+  test4();
+  cout << "****end of test4**:" << endl << endl;
+
+  cout << "****test5**:" << endl;
+  test5();
+  cout << "****end of test5**:" << endl << endl;
 
   return 0;
 }
