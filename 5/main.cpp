@@ -34,10 +34,9 @@ void testSolver(ListOfPoints &input) {
   solver.solve();
   solver.getSolution();
 
-
   cout << "Solution found is: " << endl;
   solver.printSolution();
-  // cout << "the length of the solution is: " << solution.getLength() << endl;
+  cout << "the length of the solution is: " << solver.getLength() << endl;
 }
 
 void test1() {

@@ -6,14 +6,14 @@ TSPSolver::TSPSolver(ListOfPoints &list):
 
 void TSPSolver::solve() {
   Point* start = getAvg();
-  swap(start, 0);
+  start = swap(start, 0);
   
   // Go through all points, find nearest, break ties by going further away from start
   // once point is found counter++, move it in the list
   // Moving: swap index where item is supposed to go and item 
   // Continue with that point and look at remaining points
 
-  Point* last = start; 
+  Point* last = start; // the last element already sorted
   unsigned int length = m_list.getLen();
   unsigned int i = 1; // start is already decided
   
@@ -21,7 +21,7 @@ void TSPSolver::solve() {
     // find min distance of all items 
     float minDist = 40;
     Point* winner = NULL; // element with least distance 
-    Point* el = last; 
+    Point* el = last->getNext(); // we don't want to sort same element again, already in correct spot so we look at next element
 
     while (el != NULL) {
       float dist = el->getDistance(*last);
@@ -33,7 +33,7 @@ void TSPSolver::solve() {
       } else if (dist == minDist) {
         float currentWinDist = start->getDistance(*winner);
         float elDist = start->getDistance(*el);
-        
+        // furthest gets declared as winner
         if (elDist > currentWinDist) {
           winner = el;
         }
@@ -42,7 +42,7 @@ void TSPSolver::solve() {
       el = el->getNext();
     }
 
-    // winner has be determined, swap
+    // winner has be determined, swap, get address and last
     last = this->swap(winner, i);
     i++;
   }
@@ -80,7 +80,6 @@ ListOfPoints TSPSolver::getSolution() {
 // picks the initial point by averaging max - min for x and y and finding closest point to it 
 Point* TSPSolver::getAvg() {
   Point* el = this->m_list.getHead();
-  cout << *el << endl;
   // initialize max and min 
   int max_x = -1;
   int min_x = 21;
@@ -89,7 +88,6 @@ Point* TSPSolver::getAvg() {
 
   // traverse through all element in list and find max and min
   while (el != NULL) {
-    cout << *el << endl;
     int x = el->getX();
     int y = el->getY();
 
@@ -147,7 +145,7 @@ Point* TSPSolver::getAvg() {
     el = el->getNext();
   }
 
-  cout << *winner << endl;
+  cout << "Start: " << *winner << endl;
   return winner;
 }
 
@@ -160,4 +158,31 @@ void TSPSolver::printSolution() {
   }
 
   cout << m_list.getHead()->getName() << endl;
+}
+
+float TSPSolver::getLength() {
+  float length = 0; 
+  Point* head = m_list.getHead();
+  
+  if (head == NULL) {
+    return 0;
+  }
+
+  Point* el = head->getNext();
+  if (el == NULL) {
+    return 0;
+  }
+
+  Point* lastEl = head;
+
+  // go through all points and add up lengths
+  while (el != NULL) {
+    length += el->getDistance(*lastEl);
+    lastEl = el; 
+    el = el->getNext();
+  }
+
+  // length of last point 
+  length += lastEl->getDistance(*head);
+  return length;
 }
