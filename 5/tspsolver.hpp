@@ -33,7 +33,7 @@ class TSPSolver {
     // gets the avg of all points
     Point* getAvg();
 
-    void swap(Point* point, unsigned int swapIndex);
+    Point* swap(Point* point, unsigned int swapIndex);
 };
 
 #endif

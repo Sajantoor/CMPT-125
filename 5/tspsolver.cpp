@@ -19,20 +19,20 @@ void TSPSolver::solve() {
   
   while (i < length) {
     // find min distance of all items 
-    int minDist = 40;
+    float minDist = 40;
     Point* winner = NULL; // element with least distance 
     Point* el = last; 
 
     while (el != NULL) {
-      int dist = el->getDistance(*last);
+      float dist = el->getDistance(*last);
       
       if (dist < minDist) { 
         minDist = dist;
         winner = el; 
       // in tie case, break tie by looking at element furthest from start since we have to go back anyways, other element is the current winner 
       } else if (dist == minDist) {
-        int currentWinDist = start->getDistance(*winner);
-        int elDist = start->getDistance(*el);
+        float currentWinDist = start->getDistance(*winner);
+        float elDist = start->getDistance(*el);
         
         if (elDist > currentWinDist) {
           winner = el;
@@ -43,13 +43,13 @@ void TSPSolver::solve() {
     }
 
     // winner has be determined, swap
-    this->swap(winner, i);
+    last = this->swap(winner, i);
     i++;
   }
 }
 
 // find index and swap 
-void TSPSolver::swap(Point* point, unsigned int swapIndex) {
+Point* TSPSolver::swap(Point* point, unsigned int swapIndex) {
   Point* el = m_list.getHead();
   unsigned int i = 0;
 
@@ -69,6 +69,8 @@ void TSPSolver::swap(Point* point, unsigned int swapIndex) {
   point->setName(swapValues.getName());
   point->setX(swapValues.getX());
   point->setY(swapValues.getY());
+
+  return el;
 } 
 
 ListOfPoints TSPSolver::getSolution() {
