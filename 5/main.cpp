@@ -4,6 +4,7 @@
 #include "point.hpp"
 #include "listofpoints.hpp"
 #include "tspsolver.hpp"
+#include <time.h>
 
 using namespace std;
 
@@ -32,7 +33,7 @@ void testSolver(ListOfPoints &input) {
   cout << "---run the solver---" << endl;
   TSPSolver solver(input);
   solver.solve();
-  ListOfPoints list = solver.getSolution();
+  solver.getSolution();
 
   cout << "Solution found is: " << endl;
   solver.printSolution();
@@ -128,6 +129,14 @@ void test5() {
   testSolver(inputTSP);
 }
 
+// empty test
+void test6() {
+  ListOfPoints inputTSP;
+  inputTSP.printList();  
+  inputTSP.draw();  
+  testSolver(inputTSP);
+}
+
 
 int main() {
   cout << "****Test point**" << endl;
@@ -153,6 +162,10 @@ int main() {
   cout << "****test5**:" << endl;
   test5();
   cout << "****end of test5**:" << endl << endl;
+
+  cout << "****test6**:" << endl;
+  test6();
+  cout << "****end of test6**:" << endl << endl;
 
   return 0;
 }

@@ -5,6 +5,12 @@ TSPSolver::TSPSolver(ListOfPoints &list):
 {}
 
 void TSPSolver::solve() {
+  // empty list
+  if (m_list.getHead() == NULL) {
+    cout << "Empty list" << endl;
+    return;
+  }
+
   Point* start = getAvg();
   start = swap(start, 0);
   
@@ -110,22 +116,12 @@ Point* TSPSolver::getAvg() {
   } 
 
   // coordinates of the approximate middle of the all points
-  int avgX = max_x - min_x;
-  int avgY = max_y - min_y;
-
-  // if all points are in straight line or more or less straight line
-  // the avg point will not be right, this corrects for it
-  if ((avgX == 0 && avgY == 0) || (avgX == 20 && avgY == 20)) {
-    avgY /= 2;
-    avgX /= 2;
-  } else if (avgX == 0) {
-    avgY /= 2;
-  } else if (avgY == 0) {
-    avgX /= 2;
-  }
+  int avgX = round((max_x - min_x) / 2.0) + min_x;
+  int avgY = round((max_y - min_y) / 2.0) + min_y;
 
   // create new point with these avg x and y
   Point avg = Point(avgX, avgY, "Average point"); 
+  cout << "AvgX: " << avgX << "AvgY: " << avgY << endl;
 
   // compare distances to average point and find the smallest distance, whichever point has the smallest is the first point 
   el = this->m_list.getHead();
@@ -148,6 +144,9 @@ Point* TSPSolver::getAvg() {
 
 void TSPSolver::printSolution() {
   Point* el = m_list.getHead();
+  if (el == NULL) {
+    return;
+  }
   
   while (el != NULL) {
     cout << el->getName() << " -> ";
